@@ -1,0 +1,24 @@
+{
+  "name": "sellnbuy-ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
+    "dev": "pnpm --parallel dev"
+  },
+  "keywords": [
+    "ecommerce",
+    "react",
+    "javascript"
+  ],
+  "author": "Osama Mohammed",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.2",
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^4.2.4"
+  }
+}
