@@ -6,6 +6,8 @@
 2. Install dependencies using `pnpm install`
 3. Start the development server using `pnpm run dev`
 4. Install [PostgreSQL](https://www.postgresql.org/download/), and paste the credentials in the `apps/api/.env` file
+5. Create the database. Run `chmod +x ./apps/api/database/create-database.sh && ./apps/api/database/create-database.sh`
+6. Seed the database. Run `cd apps/api && node --env-file=.env database/seed.js`
 
 ## Development
 
