@@ -1,11 +1,21 @@
-import { Button } from "@/components/ui/button";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from "./views/Home";
+import { Products } from "./views/Products";
+import { Dashboard } from "./views/Dashboard";
+import { Cart } from "./views/Cart";
+import { Navbar } from "./components/Navbar";
 
-function App() {
+export function App() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

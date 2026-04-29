@@ -15,10 +15,5 @@
   ],
   "author": "Osama Mohammed",
   "license": "MIT",
-  "packageManager": "pnpm@10.28.2",
-  "devDependencies": {
-    "autoprefixer": "^10.5.0",
-    "postcss": "^8.5.10",
-    "tailwindcss": "^4.2.4"
-  }
+  "packageManager": "pnpm@10.28.2"
 }
