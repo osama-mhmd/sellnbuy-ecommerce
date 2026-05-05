@@ -10,7 +10,7 @@ const PERKS = [
   { icon: TrendingUp, label: "Best Prices", desc: "Price-match guarantee" },
 ];
 
-function ProductSkeleton() {
+export function ProductSkeleton() {
   return (
     <div className="rounded-2xl border border-gray-100 overflow-hidden">
       <Skeleton className="aspect-square w-full" />
