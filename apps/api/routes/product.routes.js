@@ -12,17 +12,17 @@ router.get("/", async (req, res) => {
     const offset = (page - 1) * limit;
 
     const productsQuery = sql`
-            SELECT * FROM products 
-            ORDER BY id DESC 
-            LIMIT ${limit} OFFSET ${offset}
-        `;
+      SELECT * FROM products 
+      ORDER BY id DESC 
+      LIMIT ${limit} OFFSET ${offset}
+    `;
     const result = await db.execute(productsQuery);
     const products = result.rows || result;
 
     const countQuery = sql`
-            SELECT COUNT(*) 
-            FROM products
-        `;
+      SELECT COUNT(*) 
+      FROM products
+    `;
     const countResult = await db.execute(countQuery);
     const countRows = countResult.rows || countResult;
     const totalProducts = parseInt(countRows[0].count);
@@ -46,10 +46,10 @@ router.get("/:id", async (req, res) => {
     const id = parseInt(req.params.id);
 
     const query = sql`
-            SELECT * 
-            FROM products 
-            WHERE id = ${id} LIMIT 1
-        `;
+      SELECT * 
+      FROM products 
+      WHERE id = ${id} LIMIT 1
+    `;
     const result = await db.execute(query);
     const rows = result.rows || result;
 
@@ -68,12 +68,9 @@ router.post("/", protect, async (req, res) => {
     const body = req.body || {};
     const { title, description, price, image } = body;
 
-    if (!title || !price) {
-      return res.status(400).json({ message: "Title and price are required" });
+    if (!title || !price || !description || !image ) {
+      return res.status(400).json({ message: "Title, price, description and image are required" });
     }
-    const safeDesc = description || null;
-    const safeImage = image || null;
-
     const insertQuery = sql`
       INSERT INTO products (title, description, price, image)
       VALUES (${title}, ${description}, ${price}, ${image})
@@ -98,9 +95,9 @@ router.delete("/:id", protect, async (req, res) => {
     const id = parseInt(req.params.id);
 
     const deleteQuery = sql`
-            DELETE FROM products 
-            WHERE id = ${id} RETURNING id
-        `;
+      DELETE FROM products 
+      WHERE id = ${id} RETURNING id
+    `;
     const result = await db.execute(deleteQuery);
     const rows = result.rows || result;
 

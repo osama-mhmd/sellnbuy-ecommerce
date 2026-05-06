@@ -2,7 +2,9 @@ import jwt from "jsonwebtoken";
 
 const protect = (req, res, next) => {
   const token = req.cookies?.token;
-  if (token) {
+  if (!token) {
+    res.status(401).json({ message: "Not authorized, no token" });
+  }
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       if (decoded.role !== "admin") {
@@ -14,8 +16,5 @@ const protect = (req, res, next) => {
       console.error("Token verification error:", error.message);
       res.status(401).json({ message: "Not authorized, token failed" });
     }
-  } else {
-    res.status(401).json({ message: "Not authorized, no token" });
-  }
 };
 export default protect;

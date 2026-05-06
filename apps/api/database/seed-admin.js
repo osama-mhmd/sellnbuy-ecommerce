@@ -31,10 +31,10 @@ async function seedAdmin() {
     const name = "Super Admin";
 
     const insertQuery = sql`
-            INSERT INTO admins (name, email, password)
-            VALUES (${name}, ${email}, ${hashedPassword})
-            RETURNING id, name, email
-        `;
+      INSERT INTO admins (name, email, password)
+      VALUES (${name}, ${email}, ${hashedPassword})
+      RETURNING id, name, email
+    `;
     const result = await db.execute(insertQuery);
     const newAdmin = result.rows ? result.rows[0] : result[0];
 

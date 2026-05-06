@@ -1,7 +1,7 @@
 import express from "express";
 import { db } from "../config/db.js";
 import { sql } from "drizzle-orm";
-// import protect from "../middlewares/auth.middleware.js";
+import protect from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -17,10 +17,10 @@ router.post("/", async (req, res) => {
       let totalAmount = 0;
       for (const item of items) {
         const productQuery = sql`
-                    SELECT price 
-                    FROM products
-                    WHERE id = ${item.product_id} LIMIT 1
-                `;
+          SELECT price 
+          FROM products
+          WHERE id = ${item.product_id} LIMIT 1
+        `;
         const result = await tx.execute(productQuery);
         const rows = result.rows || result;
         if (rows.length === 0) {
@@ -30,19 +30,19 @@ router.post("/", async (req, res) => {
         totalAmount += productPrice * item.quantity;
       }
       const orderQuery = sql`
-                INSERT INTO orders (phone_number, location, total, status)
-                VALUES (${phone_number}, ${location}, ${totalAmount}, 1)
-                RETURNING id
-            `;
+        INSERT INTO orders (phone_number, location, total, status)
+        VALUES (${phone_number}, ${location}, ${totalAmount}, 1)
+        RETURNING id
+      `;
       const orderResult = await tx.execute(orderQuery);
       const orderRows = orderResult.rows || orderResult;
       const newOrderId = orderRows[0].id;
 
       for (const item of items) {
         const itemQuery = sql`
-                    INSERT INTO order_items (order_id, product_id, quantity)
-                    VALUES (${newOrderId}, ${item.product_id}, ${item.quantity})
-                `;
+          INSERT INTO order_items (order_id, product_id, quantity)
+          VALUES (${newOrderId}, ${item.product_id}, ${item.quantity})
+        `;
         await tx.execute(itemQuery);
       }
       res.status(201).json({
@@ -60,7 +60,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", protect, async (req, res) => {
   try {
     const ordersQuery = sql`SELECT * FROM orders ORDER BY id DESC`;
     const result = await db.execute(ordersQuery);
