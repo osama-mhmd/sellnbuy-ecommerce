@@ -57,7 +57,7 @@ Authentication is handled using HTTP-Only cookies. The frontend **does not** nee
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `GET` | `/` | Public | Get all products (with pagination) | Query: `?page=1&limit=10` | `200 OK`: `{ "products": [...], "pagination": {...} }` |
 | `GET` | `/:id` | Public | Get a single product by ID | Params: `id` | `200 OK`: Product Object |
-| `POST` | `/` | **Admin** | Create a new product | `{ "title": "*", "price": "*", "description": "", "image": "" }` | `201 Created`: Created Product Object |
+| `POST` | `/` | **Admin** | Create a new product | `{ "title": "*", "price": "*", "description": "*", "image": "*" }` | `201 Created`: Created Product Object |
 | `DELETE` | `/:id` | **Admin** | Delete a product by ID | Params: `id` | `200 OK`: `{ "message": "Product deleted successfully" }` |
 
 *(Fields marked with `*` in the Body are strictly required).*
